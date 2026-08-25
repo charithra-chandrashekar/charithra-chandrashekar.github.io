@@ -1219,6 +1219,7 @@
 <script>
 (function(){
   // ---------- Palette data (from colour_palettes.json) ----------
+
   var PALETTES = {
     "navy_teal_skyblue_white": [
       { name:"Navy", hex:"#2F4156" }, { name:"Teal", hex:"#567C8D" },
@@ -1239,15 +1240,42 @@
     "creme_cinna_chai": [
       { name:"Creme", hex:"#CDC6C3" }, { name:"Cinna", hex:"#CFB3A9" },
       { name:"Froth", hex:"#F1EEEB" }, { name:"Latte", hex:"#A09086" }, { name:"Chai", hex:"#E4D8CB" }
+    ],
+    "executive_slate": [
+      { name:"Midnight", hex:"#1F2937" }, { name:"Slate", hex:"#475569" },
+      { name:"Steel", hex:"#94A3B8" }, { name:"Mist", hex:"#E2E8F0" }, { name:"Ivory", hex:"#F8FAFC" }
+    ],
+    "forest_gold": [
+      { name:"Pine", hex:"#193B32" }, { name:"Forest", hex:"#356859" },
+      { name:"Sage", hex:"#A3B18A" }, { name:"Sand", hex:"#E9E2D0" }, { name:"Gold", hex:"#C69C4C" }
+    ],
+    "burgundy_neutral": [
+      { name:"Burgundy", hex:"#6B2737" }, { name:"Merlot", hex:"#8B3A4A" },
+      { name:"Taupe", hex:"#A89F91" }, { name:"Stone", hex:"#D6D1C8" }, { name:"Porcelain", hex:"#F7F5F2" }
+    ],
+    "navy_cocoa_cream": [
+      { name:"Navy", hex:"#2F4156" }, { name:"Cocoa", hex:"#664E44" },
+      { name:"Dusty", hex:"#B08B7F" }, { name:"Cream", hex:"#FAF4E5" }, { name:"White", hex:"#FFFFFF" }
+    ],
+    "denim_sage_chai": [
+      { name:"Midnight Blue", hex:"#243A5E" }, { name:"Dusty Denim", hex:"#5F86A6" },
+      { name:"Sky Blue", hex:"#C8D9E6" }, { name:"Sage", hex:"#C7C3B0" }, { name:"Chai", hex:"#E4D8CB" }
     ]
   };
+
   var PALETTE_LABELS = {
     navy_teal_skyblue_white: "Navy & Teal",
     shades_of_blue: "Shades of Blue",
     black_brown_granite_beige: "Black & Granite",
     cocoa_sage_peach: "Cocoa & Sage",
-    creme_cinna_chai: "Crème & Chai"
+    creme_cinna_chai: "Crème & Chai",
+    executive_slate: "Executive Slate",
+    forest_gold: "Forest & Gold",
+    burgundy_neutral: "Burgundy & Neutral",
+    navy_cocoa_cream: "Navy, Cocoa & Cream",
+    denim_sage_chai: "Denim, Sage & Chai"
   };
+
 
   var root = document.documentElement;
 
