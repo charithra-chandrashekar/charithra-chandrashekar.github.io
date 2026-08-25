@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Charithra Chandrashekar — ML Engineer</title>
-<meta name="description" content="Portfolio of Charithra Chandrashekar — Machine Learning Engineer working across Graph Neural Networks, LLM/RAG systems, and production ML infrastructure.">
+<title>Charithra Chandrashekar | ML Engineer</title>
+<meta name="description" content="Portfolio of Charithra Chandrashekar, Machine Learning Engineer working across Graph Neural Networks, LLM/RAG systems, and production ML infrastructure.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   :root{
-    /* runtime palette variables — set by JS from colour_palettes.json */
+    /* runtime palette variables, set by JS from colour_palettes.json */
     --c1:#2F4156; --c2:#567C8D; --c3:#C8D9E6; --c4:#F5EEEB; --c5:#FFFFFF;
     --bg: var(--c4);
     --surface: var(--c5);
@@ -350,15 +350,38 @@
   .xp-bullets li{ margin-bottom:5px; }
 
   /* ---------- Skills ---------- */
-  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:22px; }
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:18px;
+  }
+  .skill-group{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent-strong);
+    border-radius:8px;
+    padding:20px 22px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .skill-group:hover{ transform:translateY(-2px); border-color:var(--accent); border-left-color:var(--accent-strong); }
+  .skill-group-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:14px;
+    gap:10px;
+  }
   .skill-group h4{
     font-family:'JetBrains Mono', monospace;
-    font-size:0.76rem;
+    font-size:0.78rem;
     text-transform:uppercase;
     letter-spacing:0.06em;
     color:var(--accent-strong);
-    margin-bottom:12px;
     font-weight:600;
+  }
+  .skill-group-count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    color:var(--ink-soft);
+    opacity:0.7;
   }
   .skill-group .chip{ margin:0 6px 6px 0; display:inline-block; }
 
@@ -468,6 +491,122 @@
   .stat-box .num{ font-family:'Fraunces',serif; font-size:1.9rem; font-weight:600; color:var(--accent-strong); }
   .stat-box .lbl{ font-size:0.78rem; color:var(--ink-soft); margin-top:4px; }
 
+  /* ---------- Thesis deep-dive ---------- */
+  .thesis-hero{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:32px 34px;
+    margin-bottom:40px;
+  }
+  .thesis-hero .thesis-kicker{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.76rem;
+    color:var(--accent-strong);
+    letter-spacing:0.05em;
+    margin-bottom:10px;
+  }
+  .thesis-hero h3{
+    font-size:1.5rem;
+    max-width:38ch;
+    margin-bottom:16px;
+  }
+  .thesis-hero p{
+    color:var(--ink-soft);
+    font-size:0.98rem;
+    max-width:74ch;
+    margin-bottom:0;
+  }
+  .thesis-hero .thesis-links{ display:flex; gap:18px; margin-top:20px; flex-wrap:wrap; }
+
+  .thesis-block{ margin-bottom:44px; }
+  .thesis-block:last-child{ margin-bottom:0; }
+  .thesis-block h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.07em;
+    color:var(--accent-strong);
+    margin-bottom:16px;
+  }
+  .thesis-block p{ color:var(--ink-soft); font-size:0.95rem; max-width:76ch; margin:0 0 14px; }
+  .thesis-block ul{ margin:0 0 14px; padding-left:20px; color:var(--ink-soft); font-size:0.95rem; }
+  .thesis-block ul li{ margin-bottom:6px; }
+
+  /* Dataset composition bar */
+  .dataset-bar{
+    display:flex;
+    width:100%;
+    height:34px;
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:14px;
+    border:1px solid var(--line);
+  }
+  .dataset-bar-seg{ height:100%; }
+  .dataset-legend{ display:flex; flex-wrap:wrap; gap:18px; }
+  .dataset-legend-item{ display:flex; align-items:center; gap:8px; font-size:0.84rem; color:var(--ink-soft); }
+  .dataset-legend-dot{ width:11px; height:11px; border-radius:3px; display:inline-block; flex:none; }
+
+  /* Diagram card wrapper */
+  .diagram-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px;
+    margin-bottom:18px;
+  }
+  .diagram-card svg{ width:100%; height:auto; display:block; }
+  .diagram-caption{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem;
+    color:var(--ink-soft);
+    margin-top:12px;
+    text-align:center;
+  }
+
+  .thesis-two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:800px){ .thesis-two-col{ grid-template-columns:1fr; } }
+
+  /* Results table */
+  .results-table-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:10px; }
+  table.results-table{ width:100%; border-collapse:collapse; font-size:0.88rem; min-width:560px; }
+  table.results-table th, table.results-table td{
+    padding:12px 16px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  table.results-table thead th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    background:var(--bg);
+  }
+  table.results-table tbody tr:last-child td{ border-bottom:none; }
+  table.results-table tr.highlight-row td{ font-weight:700; color:var(--accent-strong); background:var(--bg); }
+  table.results-table tr.highlight-row td:first-child{ position:relative; }
+
+  /* Results chart */
+  .chart-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px 24px 18px;
+  }
+  .chart-card svg{ width:100%; height:auto; display:block; }
+  .chart-bar{ transition:opacity .2s ease; }
+  .chart-legend{ display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; justify-content:center; }
+  .chart-legend-item{ display:flex; align-items:center; gap:7px; font-size:0.78rem; color:var(--ink-soft); font-family:'JetBrains Mono', monospace; }
+  .chart-legend-dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+
+
   footer{
     border-top:1px solid var(--line);
     padding:40px 0 60px;
@@ -511,6 +650,7 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#research">Research</a></li>
+    <li><a href="#thesis">Thesis</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#certifications">Certifications</a></li>
@@ -529,7 +669,7 @@
         and production reliability meet.
       </h1>
       <p class="lede">
-        9 years across the full ML lifecycle — from a cross-layered Graph Neural Network for drug&ndash;target
+        9 years across the full ML lifecycle, from a cross-layered Graph Neural Network for drug&ndash;target
         interaction prediction, to LLM-powered APIs and RAG pipelines running in production at Wipro.
         I care about work where the science has to hold up under real load.
       </p>
@@ -559,8 +699,8 @@
   <section data-track="research" style="padding-top:48px;">
     <div class="wrap">
       <div class="stat-strip">
-        <div class="stat-box"><div class="num">0.9731</div><div class="lbl">AUROC — SimXGNN</div></div>
-        <div class="stat-box"><div class="num">0.9776</div><div class="lbl">AUPR — SimXGNN</div></div>
+        <div class="stat-box"><div class="num">0.9731</div><div class="lbl">AUROC, SimXGNN</div></div>
+        <div class="stat-box"><div class="num">0.9776</div><div class="lbl">AUPR, SimXGNN</div></div>
         <div class="stat-box"><div class="num">12,015</div><div class="lbl">graph nodes integrated</div></div>
         <div class="stat-box"><div class="num">4</div><div class="lbl">source databases fused</div></div>
       </div>
@@ -572,15 +712,15 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Selected projects</h2>
-        <span class="section-num mono">01 — from github.com/charithra-chandrashekar</span>
+        <span class="section-num mono">01 · from github.com/charithra-chandrashekar</span>
       </div>
 
       <div class="project-grid">
 
-        <!-- SimXGNN — both tracks, featured -->
+        <!-- SimXGNN, both tracks, featured -->
         <article class="project-card featured track-both">
           <div class="pc-top">
-            <h3 class="pc-title"><a href="https://github.com/charithracrs/simxgnn-codes" target="_blank" rel="noopener">SimXGNN — Drug&ndash;Target Interaction Prediction</a></h3>
+            <h3 class="pc-title"><a href="https://github.com/charithracrs/simxgnn-codes" target="_blank" rel="noopener">SimXGNN: Drug&ndash;Target Interaction Prediction</a></h3>
             <span class="pc-tag" data-track-tag="research">Master's Thesis</span>
           </div>
           <p class="pc-desc">
@@ -601,18 +741,19 @@
             <span class="chip">Explainable AI</span>
           </div>
           <div class="pc-links">
+            <a class="pc-link" href="#thesis">Read the full thesis deep-dive →</a>
             <a class="pc-link" href="https://github.com/charithracrs/simxgnn-codes" target="_blank" rel="noopener">Code on GitHub →</a>
           </div>
         </article>
 
-        <!-- Portfolio site repo — industry -->
+        <!-- Portfolio site repo, industry -->
         <article class="project-card track-both" data-track="industry">
           <div class="pc-top">
             <h3 class="pc-title"><a href="https://github.com/charithra-chandrashekar/charithra-chandrashekar.github.io" target="_blank" rel="noopener">Personal Portfolio Site</a></h3>
             <span class="pc-tag">Web</span>
           </div>
           <p class="pc-desc">
-            Source for this portfolio — a self-contained, static site with a runtime colour-palette switcher
+            Source for this portfolio: a self-contained, static site with a runtime colour-palette switcher
             and a research/industry view toggle, built to present the same body of work to two different audiences.
           </p>
           <div class="pc-stack">
@@ -624,14 +765,14 @@
           </div>
         </article>
 
-        <!-- Django/Postgres — industry -->
+        <!-- Django/Postgres, industry -->
         <article class="project-card" data-track="industry">
           <div class="pc-top">
             <h3 class="pc-title"><a href="https://github.com/charithracrs/django-postgresql" target="_blank" rel="noopener">Django + PostgreSQL Backend</a></h3>
             <span class="pc-tag">Backend</span>
           </div>
           <p class="pc-desc">
-            A backend service scaffold pairing Django with PostgreSQL — covering schema design, ORM models,
+            A backend service scaffold pairing Django with PostgreSQL, covering schema design, ORM models,
             and API-layer patterns that carry over directly into production REST services.
           </p>
           <div class="pc-stack">
@@ -644,14 +785,14 @@
           </div>
         </article>
 
-        <!-- boot-python — industry -->
+        <!-- boot-python, industry -->
         <article class="project-card" data-track="industry">
           <div class="pc-top">
             <h3 class="pc-title"><a href="https://github.com/charithracrs/boot-python" target="_blank" rel="noopener">Python Modules &amp; Foundations</a></h3>
             <span class="pc-tag">Python</span>
           </div>
           <p class="pc-desc">
-            A working collection of Python modules and small projects — core language patterns, data
+            A working collection of Python modules and small projects: core language patterns, data
             structures, and scripting utilities built up over time.
           </p>
           <div class="pc-stack">
@@ -671,27 +812,27 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Experience</h2>
-        <span class="section-num mono">02 — 9 years, 4 companies</span>
+        <span class="section-num mono">02 · 9 years, 4 companies</span>
       </div>
 
       <div class="xp-list">
         <div class="xp-item">
-          <div class="xp-period">Dec 2023 — Present</div>
+          <div class="xp-period">Dec 2023 to Present</div>
           <div>
             <div class="xp-role">Technical Lead, Product Development</div>
             <div class="xp-org">Wipro Technologies · Bengaluru</div>
             <ul class="xp-bullets">
               <li>Architected and deployed a multilingual Glossary Service (FastAPI) integrating Google Glossary and DeepL across 18 languages.</li>
-              <li>Developed and productionized custom translation models — training, fine-tuning, deployment, and monitoring on PyTorch with distributed training.</li>
+              <li>Developed and productionized custom translation models: training, fine-tuning, deployment, and monitoring on PyTorch with distributed training.</li>
               <li>Built a GPT-powered Dictionary API, automating terminology resolution and removing manual lookup overhead.</li>
               <li>Designed event-driven Azure Function pipelines achieving 98% uptime under dynamic load.</li>
-              <li>Established ML engineering standards — experiment tracking, model versioning, deployment workflows — adopted across teams.</li>
+              <li>Established ML engineering standards (experiment tracking, model versioning, deployment workflows) adopted across teams.</li>
             </ul>
           </div>
         </div>
 
         <div class="xp-item">
-          <div class="xp-period">Aug 2021 — Mar 2023</div>
+          <div class="xp-period">Aug 2021 to Mar 2023</div>
           <div>
             <div class="xp-role">Senior Python Engineer</div>
             <div class="xp-org">Sandvine Technologies · Bengaluru</div>
@@ -705,7 +846,7 @@
         </div>
 
         <div class="xp-item">
-          <div class="xp-period">Mar 2019 — Aug 2021</div>
+          <div class="xp-period">Mar 2019 to Aug 2021</div>
           <div>
             <div class="xp-role">Python Developer</div>
             <div class="xp-org">PalC Networks · Bengaluru</div>
@@ -718,7 +859,7 @@
         </div>
 
         <div class="xp-item">
-          <div class="xp-period">Aug 2016 — Mar 2019</div>
+          <div class="xp-period">Aug 2016 to Mar 2019</div>
           <div>
             <div class="xp-role">Software Developer</div>
             <div class="xp-org">Wipro Technologies · Bengaluru</div>
@@ -738,7 +879,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Research</h2>
-        <span class="section-num mono">03 — thesis &amp; applied ML</span>
+        <span class="section-num mono">03 · thesis &amp; applied ML</span>
       </div>
 
       <div class="project-grid">
@@ -760,6 +901,9 @@
             <span class="chip">AUPR 0.9776</span>
             <span class="chip">Accuracy 0.9065</span>
           </div>
+          <div class="pc-links" style="margin-top:16px;">
+            <a class="pc-link" href="#thesis">Read the full thesis deep-dive →</a>
+          </div>
         </article>
 
         <article class="project-card">
@@ -769,11 +913,155 @@
           </div>
           <p class="pc-desc">
             Built and deployed complete ML pipelines covering data preparation, model training, experiment
-            tracking, and automated deployment on Azure ML — practices that translated directly into
+            tracking, and automated deployment on Azure ML, practices that translated directly into
             production pipeline work at Sandvine and Wipro.
           </p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= SIMXGNN THESIS DEEP-DIVE ================= -->
+  <section id="thesis" data-track="research">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>SimXGNN: Master's Thesis</h2>
+        <span class="section-num mono">04 · full deep-dive</span>
+      </div>
+
+      <div class="thesis-hero">
+        <div class="thesis-kicker">PES University · Published as an EAI Endorsed Transactions preprint</div>
+        <h3>Similarity-Enhanced Cross-layered Graph Neural Network for drug&ndash;target interaction prediction</h3>
+        <p>
+          Predicting how a drug molecule will interact with a biological target is central to drug discovery, but
+          traditional wet-lab screening is slow and expensive, and most computational methods encode drugs and
+          targets separately, missing the substructure relationships that actually drive an interaction. SimXGNN
+          tackles this by learning drug and protein representations jointly, interleaving three graph convolution
+          styles (GCN, GAT, GraphSAGE) and training with drug&ndash;protein similarity signals alongside contrastive
+          learning, so the model captures both fine-grained local chemistry and broader structural context at once.
+        </p>
+        <div class="thesis-links">
+          <a class="pc-link" href="https://github.com/charithracrs/simxgnn-codes" target="_blank" rel="noopener">Code on GitHub →</a>
+        </div>
+      </div>
+
+      <!-- Dataset -->
+      <div class="thesis-block">
+        <h4>Dataset: a fused, heterogeneous drug&ndash;target graph</h4>
+        <p>
+          Rather than relying on one data source, the training graph was assembled from four separate biological
+          databases, each contributing a different layer of information: interaction networks, chemical structure,
+          protein sequence, and, where no experimental structure existed, AlphaFold-predicted protein folds.
+          The result is a single heterogeneous graph of 12,015 nodes spanning drugs, proteins, diseases, and side
+          effects, connected through six categories of similarity and interaction edges.
+        </p>
+        <div class="dataset-bar" role="img" aria-label="Dataset composition: 708 drugs, 1512 proteins, 5603 diseases, 4192 side effects">
+          <div class="dataset-bar-seg" style="width:5.9%; background:var(--accent-strong);" title="Drugs: 708"></div>
+          <div class="dataset-bar-seg" style="width:12.6%; background:var(--accent);" title="Proteins: 1512"></div>
+          <div class="dataset-bar-seg" style="width:46.6%; background:var(--c3);" title="Diseases: 5603"></div>
+          <div class="dataset-bar-seg" style="width:34.9%; background:var(--line);" title="Side effects: 4192"></div>
+        </div>
+        <div class="dataset-legend">
+          <div class="dataset-legend-item"><span class="dataset-legend-dot" style="background:var(--accent-strong);"></span>708 drugs (DrugBank)</div>
+          <div class="dataset-legend-item"><span class="dataset-legend-dot" style="background:var(--accent);"></span>1,512 proteins (UniProt / PDB / AlphaFold)</div>
+          <div class="dataset-legend-item"><span class="dataset-legend-dot" style="background:var(--c3);"></span>5,603 diseases</div>
+          <div class="dataset-legend-item"><span class="dataset-legend-dot" style="background:var(--line); border:1px solid var(--ink-soft);"></span>4,192 side effects</div>
+        </div>
+      </div>
+
+      <!-- Architecture -->
+      <div class="thesis-block">
+        <h4>Architecture: two interleaved GNN variants</h4>
+        <p>
+          Drug molecules and protein sequences are each first converted into their own graphs: atoms and bonds
+          for drugs, amino-acid residues and their contacts for proteins, and passed through a GCN feature-extraction
+          stage to produce initial embeddings. Those embeddings then feed into one of two proposed hybrid models,
+          each combining a different pair of convolution styles in an alternating pattern, trained jointly with a
+          collaborative contrastive loss and an adaptive self-paced sampling strategy that prioritises the most
+          informative negative examples as training progresses.
+        </p>
+
+        <div class="thesis-two-col">
+          <div class="diagram-card">
+            <div id="diagramGatSage"></div>
+            <div class="diagram-caption">SimXGNN&ndash;GS: alternating GAT to SAGE layers</div>
+          </div>
+          <div class="diagram-card">
+            <div id="diagramGatGcn"></div>
+            <div class="diagram-caption">SimXGNN&ndash;GC: alternating GAT to GCN layers</div>
+          </div>
+        </div>
+
+        <ul style="margin-top:18px;">
+          <li><strong>SimXGNN&ndash;GS (GAT&ndash;SAGE):</strong> GAT layers dynamically weight task-relevant neighbours first, then SAGE layers aggregate efficiently across broader neighbourhoods, favouring scalability on large graphs.</li>
+          <li><strong>SimXGNN&ndash;GC (GAT&ndash;GCN):</strong> GAT again identifies important local neighbours first, then GCN applies uniform structural smoothing, reducing noise while preserving global consistency. This variant performed best overall.</li>
+        </ul>
+      </div>
+
+      <!-- Workflow diagram -->
+      <div class="thesis-block">
+        <h4>End-to-end workflow</h4>
+        <p>
+          Drug and protein graphs are embedded independently, fused with their respective similarity networks,
+          combined into a joint representation, and scored by an MLP decoder to predict interaction probability,
+          with the whole pipeline trained under the collaborative contrastive objective described above.
+        </p>
+        <div class="diagram-card">
+          <div id="diagramWorkflow"></div>
+          <div class="diagram-caption">Simplified data flow, drug embedding → prediction</div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="thesis-block">
+        <h4>Results: benchmarked against 5 baselines</h4>
+        <p>
+          Both SimXGNN variants were evaluated against traditional GNN baselines (GCN, GAT), a strong prior
+          drug-target model (GraphDTA), a contrastive baseline (MSGCL), and the most recent state-of-the-art
+          method, CCL-ASPS, across five standard metrics. SimXGNN&ndash;GC came out on top on every metric measured.
+        </p>
+
+        <div class="results-table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr><th>Method</th><th>AUROC</th><th>AUPR</th><th>Accuracy</th><th>F1</th><th>MCC</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GCN</td><td>0.8884</td><td>0.8541</td><td>0.8422</td><td>0.8410</td><td>0.6685</td></tr>
+              <tr><td>GAT</td><td>0.8506</td><td>0.8121</td><td>0.8371</td><td>0.8452</td><td>0.7049</td></tr>
+              <tr><td>GraphDTA</td><td>0.8941</td><td>0.8966</td><td>0.8409</td><td>0.8447</td><td>0.6827</td></tr>
+              <tr><td>MSGCL</td><td>0.8510</td><td>0.8591</td><td>0.7874</td><td>0.8021</td><td>0.5751</td></tr>
+              <tr><td>CCL-ASPS</td><td>0.9548</td><td>0.9644</td><td>0.8955</td><td>0.8932</td><td>0.8013</td></tr>
+              <tr><td>SimXGNN&ndash;GS</td><td>0.9664</td><td>0.9680</td><td>0.8880</td><td>0.8754</td><td>0.7926</td></tr>
+              <tr class="highlight-row"><td>SimXGNN&ndash;GC</td><td>0.9731</td><td>0.9776</td><td>0.9065</td><td>0.9004</td><td>0.8230</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="chart-card" style="margin-top:20px;">
+          <div id="resultsChart"></div>
+          <div class="chart-legend" id="resultsChartLegend"></div>
+        </div>
+
+        <p style="margin-top:20px;">
+          Against CCL-ASPS, the previous best-performing method, SimXGNN&ndash;GC improved AUROC by 1.92% and AUPR
+          by 1.37%, while also posting the highest accuracy, F1, and MCC scores of any method tested, indicating
+          gains not just in raw predictive power but in overall classification reliability and robustness to the
+          dataset's class imbalance.
+        </p>
+      </div>
+
+      <!-- Takeaways -->
+      <div class="thesis-block">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>Interleaving attention-based (GAT) and structural (GCN/SAGE) convolutions in sequence, rather than stacking one style repeatedly, let the model capture both fine-grained local chemistry and broader graph structure.</li>
+          <li>Fusing drug&ndash;protein similarity matrices directly into training, on top of the interaction graph itself, gave the model an extra signal that plain interaction data alone doesn't provide.</li>
+          <li>Adaptive self-paced negative sampling meant the hardest, most informative negative examples were prioritised as training progressed, rather than sampling uniformly at random.</li>
+          <li>The GAT&ndash;GCN ordering outperformed GAT&ndash;SAGE in this setting, suggesting that after attention-based local refinement, uniform structural smoothing generalised better than sampled aggregation for this dataset.</li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
@@ -782,25 +1070,98 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Core competencies</h2>
-        <span class="section-num mono">04 — stack</span>
+        <span class="section-num mono">05 · stack</span>
       </div>
       <div class="skills-grid">
+
         <div class="skill-group">
-          <h4>ML &amp; Graph Learning</h4>
-          <span class="chip">PyTorch</span><span class="chip">Scikit-learn</span><span class="chip">GNNs (GCN/GAT/GraphSAGE)</span><span class="chip">PyTorch Geometric</span><span class="chip">LLMs &amp; RAG</span><span class="chip">NLP</span>
+          <div class="skill-group-head">
+            <h4>Programming</h4>
+            <span class="skill-group-count">03</span>
+          </div>
+          <span class="chip">Python (Advanced)</span><span class="chip">SQL</span><span class="chip">Bash</span>
         </div>
+
         <div class="skill-group">
-          <h4>Backend &amp; APIs</h4>
-          <span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">REST API Design</span><span class="chip">SQLAlchemy</span>
+          <div class="skill-group-head">
+            <h4>Backend</h4>
+            <span class="skill-group-count">05</span>
+          </div>
+          <span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">Microservices</span><span class="chip">Async Python</span><span class="chip">REST APIs</span>
         </div>
+
         <div class="skill-group">
-          <h4>Data &amp; Infra</h4>
-          <span class="chip">ETL/ELT Pipelines</span><span class="chip">Feature Engineering</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Terraform</span>
+          <div class="skill-group-head">
+            <h4>Databases</h4>
+            <span class="skill-group-count">04</span>
+          </div>
+          <span class="chip">PostgreSQL (pgvector)</span><span class="chip">MySQL</span><span class="chip">Vector DBs</span><span class="chip">Elasticsearch</span>
         </div>
+
         <div class="skill-group">
-          <h4>Practice</h4>
-          <span class="chip">Python (Advanced)</span><span class="chip">SQL</span><span class="chip">Git</span><span class="chip">Agile / Scrum</span>
+          <div class="skill-group-head">
+            <h4>AI / ML</h4>
+            <span class="skill-group-count">09</span>
+          </div>
+          <span class="chip">PyTorch</span><span class="chip">Scikit-learn</span><span class="chip">Hugging Face</span><span class="chip">Transformers</span><span class="chip">NumPy</span><span class="chip">Pandas</span><span class="chip">Fine-tuning</span><span class="chip">Model Architecture Design</span><span class="chip">AI Agents / Agentic AI</span>
         </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>Data Engineering</h4>
+            <span class="skill-group-count">03</span>
+          </div>
+          <span class="chip">ETL/ELT Pipelines</span><span class="chip">Feature Engineering</span><span class="chip">Tableau</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>Graph &amp; XAI</h4>
+            <span class="skill-group-count">04</span>
+          </div>
+          <span class="chip">GNNs (GCN, GAT, GraphSAGE)</span><span class="chip">PyTorch Geometric</span><span class="chip">Explainable AI (XAI)</span><span class="chip">Contrastive Learning</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>LLM &amp; RAG</h4>
+            <span class="skill-group-count">05</span>
+          </div>
+          <span class="chip">Large Language Models</span><span class="chip">LangChain</span><span class="chip">LangSmith</span><span class="chip">RAG Pipelines</span><span class="chip">Prompt Engineering</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>MLOps</h4>
+            <span class="skill-group-count">05</span>
+          </div>
+          <span class="chip">MLflow</span><span class="chip">CI/CD</span><span class="chip">Model Versioning</span><span class="chip">Production Monitoring</span><span class="chip">LLMOps</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>Cloud</h4>
+            <span class="skill-group-count">02</span>
+          </div>
+          <span class="chip">AWS (Lambda, S3, EC2, API Gateway)</span><span class="chip">Azure (Function Apps, Azure OpenAI)</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>DevOps</h4>
+            <span class="skill-group-count">03</span>
+          </div>
+          <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Terraform</span>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <h4>Tools</h4>
+            <span class="skill-group-count">06</span>
+          </div>
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">JIRA</span><span class="chip">Postman</span><span class="chip">Poetry</span><span class="chip">Agile (Scrum, Lean)</span>
+        </div>
+
       </div>
     </div>
   </section>
@@ -810,18 +1171,18 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Education</h2>
-        <span class="section-num mono">05</span>
+        <span class="section-num mono">06</span>
       </div>
       <div class="xp-list">
         <div class="xp-item">
-          <div class="xp-period">2020 — 2025</div>
+          <div class="xp-period">2020 to 2025</div>
           <div>
             <div class="xp-role">M.Tech, Data Science &amp; Machine Learning</div>
             <div class="xp-org">PES University, Bengaluru · CGPA 8.59/10</div>
           </div>
         </div>
         <div class="xp-item">
-          <div class="xp-period">2012 — 2016</div>
+          <div class="xp-period">2012 to 2016</div>
           <div>
             <div class="xp-role">B.E., Telecommunication Engineering</div>
             <div class="xp-org">R.V. College of Engineering, Bengaluru · CGPA 7.70/10</div>
@@ -836,7 +1197,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Courses &amp; certifications</h2>
-        <span class="section-num mono">06</span>
+        <span class="section-num mono">07</span>
       </div>
       <div class="cert-grid" id="certGrid"><!-- rendered by JS from CERTS array below --></div>
     </div>
@@ -987,20 +1348,218 @@
 
 <script>
 /* =====================================================================
-   COURSES & CERTIFICATIONS — edit this list only.
+   SIMXGNN THESIS: dynamically generated SVG diagrams.
+   These are original interpretive diagrams (not reproductions of the
+   paper's figures) and use CSS variables so they follow the active
+   colour palette automatically.
+   ===================================================================== */
+(function(){
+
+  function svgNode(w, h, inner){
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">' + inner + '</svg>';
+  }
+
+  function box(x, y, w, h, label, sub, fillVar, textVar){
+    var rx = 8;
+    var textFill = textVar || 'var(--ink)';
+    var out = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + rx + '" fill="' + fillVar + '" stroke="var(--line)" stroke-width="1"/>';
+    out += '<text x="' + (x + w/2) + '" y="' + (y + h/2 - (sub ? 6 : 0)) + '" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="' + textFill + '">' + label + '</text>';
+    if(sub){
+      out += '<text x="' + (x + w/2) + '" y="' + (y + h/2 + 12) + '" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="' + textFill + '" opacity="0.75">' + sub + '</text>';
+    }
+    return out;
+  }
+
+  function arrow(x1, y1, x2, y2){
+    var id = 'ah' + Math.round(x1) + '_' + Math.round(y1) + '_' + Math.round(x2) + '_' + Math.round(y2);
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="var(--accent-strong)" stroke-width="1.6" marker-end="url(#arrowhead)"/>';
+  }
+
+  var arrowDefs = '<defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--accent-strong)"/></marker></defs>';
+
+  /* ---- Diagram 1: SimXGNN-GS (GAT -> SAGE alternating) ---- */
+  function diagramGatSage(){
+    var w = 460, h = 300;
+    var s = arrowDefs;
+    s += box(20, 20, 180, 40, 'Drug Embedding', '64-dim, from GCN', 'var(--bg)');
+    s += box(260, 20, 180, 40, 'Protein Embedding', '64-dim, from GCN', 'var(--bg)');
+
+    s += arrow(110, 60, 110, 95);
+    s += arrow(350, 60, 350, 95);
+
+    s += box(20, 95, 180, 38, 'GAT layer', 'attention-weighted neighbours', 'var(--accent-strong)', 'var(--text-on-accent)');
+    s += box(260, 95, 180, 38, 'GAT layer', 'attention-weighted neighbours', 'var(--accent-strong)', 'var(--text-on-accent)');
+
+    s += arrow(110, 133, 110, 168);
+    s += arrow(350, 133, 350, 168);
+
+    s += box(20, 168, 180, 38, 'SAGE layer', 'mean-aggregated neighbourhood', 'var(--accent)', 'var(--text-on-accent)');
+    s += box(260, 168, 180, 38, 'SAGE layer', 'mean-aggregated neighbourhood', 'var(--accent)', 'var(--text-on-accent)');
+
+    s += arrow(110, 206, 200, 245);
+    s += arrow(350, 206, 260, 245);
+
+    s += box(140, 245, 180, 40, 'Fused representation', 'collaborative contrastive loss', 'var(--bg)');
+
+    return svgNode(w, h, s);
+  }
+
+  /* ---- Diagram 2: SimXGNN-GC (GAT -> GCN alternating) ---- */
+  function diagramGatGcn(){
+    var w = 460, h = 300;
+    var s = arrowDefs;
+    s += box(20, 20, 180, 40, 'Drug Embedding', '64-dim, from GCN', 'var(--bg)');
+    s += box(260, 20, 180, 40, 'Protein Embedding', '64-dim, from GCN', 'var(--bg)');
+
+    s += arrow(110, 60, 110, 95);
+    s += arrow(350, 60, 350, 95);
+
+    s += box(20, 95, 180, 38, 'GAT layer', 'task-relevant neighbours first', 'var(--accent-strong)', 'var(--text-on-accent)');
+    s += box(260, 95, 180, 38, 'GAT layer', 'task-relevant neighbours first', 'var(--accent-strong)', 'var(--text-on-accent)');
+
+    s += arrow(110, 133, 110, 168);
+    s += arrow(350, 133, 350, 168);
+
+    s += box(20, 168, 180, 38, 'GCN layer', 'uniform structural smoothing', 'var(--accent)', 'var(--text-on-accent)');
+    s += box(260, 168, 180, 38, 'GCN layer', 'uniform structural smoothing', 'var(--accent)', 'var(--text-on-accent)');
+
+    s += arrow(110, 206, 200, 245);
+    s += arrow(350, 206, 260, 245);
+
+    s += box(140, 245, 180, 40, 'Fused representation', 'collaborative contrastive loss', 'var(--bg)');
+
+    return svgNode(w, h, s);
+  }
+
+  /* ---- Diagram 3: end-to-end workflow ---- */
+  function diagramWorkflow(){
+    var w = 980, h = 190;
+    var s = arrowDefs;
+
+    s += box(20, 20, 150, 44, 'Raw drug', 'SMILES / atom graph', 'var(--bg)');
+    s += box(20, 126, 150, 44, 'Raw protein', 'residue graph', 'var(--bg)');
+
+    s += arrow(170, 42, 220, 42);
+    s += arrow(170, 148, 220, 148);
+
+    s += box(220, 20, 150, 44, 'GCN extractor', 'drug features', 'var(--accent)', 'var(--text-on-accent)');
+    s += box(220, 126, 150, 44, 'GCN extractor', 'protein features', 'var(--accent)', 'var(--text-on-accent)');
+
+    s += arrow(370, 42, 420, 42);
+    s += arrow(370, 148, 420, 148);
+
+    s += box(420, 20, 170, 44, 'Multi-similarity fusion', 'drug&ndash;drug, drug&ndash;protein', 'var(--bg)');
+    s += box(420, 126, 170, 44, 'Multi-similarity fusion', 'protein&ndash;protein, protein&ndash;drug', 'var(--bg)');
+
+    s += arrow(590, 42, 640, 42);
+    s += arrow(590, 148, 640, 148);
+
+    s += box(640, 20, 160, 44, 'SimXGNN core', 'interleaved GAT&ndash;SAGE / GAT&ndash;GCN', 'var(--accent-strong)', 'var(--text-on-accent)');
+    s += box(640, 126, 160, 44, 'SimXGNN core', 'interleaved GAT&ndash;SAGE / GAT&ndash;GCN', 'var(--accent-strong)', 'var(--text-on-accent)');
+
+    s += arrow(720, 64, 780, 95);
+    s += arrow(720, 126, 780, 105);
+
+    s += box(830, 73, 130, 44, 'MLP decoder', 'interaction probability', 'var(--bg)');
+    s += arrow(800, 95, 830, 95);
+
+    return svgNode(w, h, s);
+  }
+
+  function mount(id, fn){
+    var el = document.getElementById(id);
+    if(el){ el.innerHTML = fn(); }
+  }
+
+  mount('diagramGatSage', diagramGatSage);
+  mount('diagramGatGcn', diagramGatGcn);
+  mount('diagramWorkflow', diagramWorkflow);
+
+  /* ---- Results chart: grouped bars from Table 2, real published values ---- */
+  function resultsChart(){
+    var methods = [
+      { name: 'GCN',        auroc: 0.8884, aupr: 0.8541, acc: 0.8422 },
+      { name: 'GAT',        auroc: 0.8506, aupr: 0.8121, acc: 0.8371 },
+      { name: 'GraphDTA',   auroc: 0.8941, aupr: 0.8966, acc: 0.8409 },
+      { name: 'MSGCL',      auroc: 0.8510, aupr: 0.8591, acc: 0.7874 },
+      { name: 'CCL-ASPS',   auroc: 0.9548, aupr: 0.9644, acc: 0.8955 },
+      { name: 'SimXGNN-GS', auroc: 0.9664, aupr: 0.9680, acc: 0.8880 },
+      { name: 'SimXGNN-GC', auroc: 0.9731, aupr: 0.9776, acc: 0.9065 }
+    ];
+
+    var w = 900, h = 340;
+    var padLeft = 46, padBottom = 46, padTop = 16, padRight = 10;
+    var chartW = w - padLeft - padRight;
+    var chartH = h - padTop - padBottom;
+    var groupW = chartW / methods.length;
+    var barW = groupW / 4.4;
+    var minVal = 0.75, maxVal = 1.0;
+
+    function yFor(v){ return padTop + chartH - ((v - minVal) / (maxVal - minVal)) * chartH; }
+
+    var s = '';
+
+    // gridlines
+    var gridVals = [0.75, 0.80, 0.85, 0.90, 0.95, 1.00];
+    gridVals.forEach(function(v){
+      var y = yFor(v);
+      s += '<line x1="' + padLeft + '" y1="' + y + '" x2="' + (w - padRight) + '" y2="' + y + '" stroke="var(--line)" stroke-width="1"/>';
+      s += '<text x="' + (padLeft - 8) + '" y="' + (y + 3) + '" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--ink-soft)">' + v.toFixed(2) + '</text>';
+    });
+
+    var colors = { auroc: 'var(--accent-strong)', aupr: 'var(--accent)', acc: 'var(--c3)' };
+
+    methods.forEach(function(m, i){
+      var gx = padLeft + i * groupW;
+      var isHighlight = m.name === 'SimXGNN-GC';
+
+      ['auroc','aupr','acc'].forEach(function(key, j){
+        var val = m[key];
+        var bx = gx + groupW/2 - (1.5 * barW) + j * (barW + 4);
+        var by = yFor(val);
+        var bh = (padTop + chartH) - by;
+        s += '<rect class="chart-bar" x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" rx="2" fill="' + colors[key] + '" opacity="' + (isHighlight ? '1' : '0.82') + '"><title>' + m.name + ' ' + key.toUpperCase() + ': ' + val.toFixed(4) + '</title></rect>';
+      });
+
+      s += '<text x="' + (gx + groupW/2) + '" y="' + (h - padBottom + 16) + '" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="' + (isHighlight ? '10' : '9') + '" font-weight="' + (isHighlight ? '700' : '400') + '" fill="' + (isHighlight ? 'var(--accent-strong)' : 'var(--ink-soft)') + '">' + m.name + '</text>';
+    });
+
+    return svgNode(w, h, s);
+  }
+
+  mount('resultsChart', resultsChart);
+
+  var legend = document.getElementById('resultsChartLegend');
+  if(legend){
+    var items = [
+      { label: 'AUROC', color: 'var(--accent-strong)' },
+      { label: 'AUPR', color: 'var(--accent)' },
+      { label: 'Accuracy', color: 'var(--c3)' }
+    ];
+    legend.innerHTML = items.map(function(it){
+      return '<span class="chart-legend-item"><span class="chart-legend-dot" style="background:' + it.color + ';"></span>' + it.label + '</span>';
+    }).join('');
+  }
+
+})();
+</script>
+
+<script>
+/* =====================================================================
+   COURSES & CERTIFICATIONS: edit this list only.
    To add a new certificate, copy one block below and fill it in.
 
-   title    (required) — course/certification name
-   issuer   (required) — who issued it
-   link     (optional) — verification URL, or leave "" to omit the link
-   image    (optional) — path to a local file, e.g. "certs/ibm-genai.png"
+   title    (required): course/certification name
+   issuer   (required): who issued it
+   link     (optional): verification URL, or leave "" to omit the link
+   image    (optional): path to a local file, e.g. "certs/ibm-genai.png"
                           PNG, JPG, and PDF are all supported.
                           PDFs render their first page as a thumbnail
                           (via PDF.js), clickable to open the full file.
                           If rendering fails (e.g. offline), it falls
                           back to a simple "View PDF certificate" tile.
                           Leave "" to show a plain placeholder instead.
-   status   (optional) — e.g. "In progress". Leave "" for completed certs.
+   status   (optional): e.g. "In progress". Leave "" for completed certs.
 
    Put image files in a "certs" folder next to this index.html file.
    ===================================================================== */
@@ -1122,7 +1681,7 @@ var CERTS = [
           link.href = path;
           link.target = '_blank';
           link.rel = 'noopener';
-          link.setAttribute('aria-label', 'Open PDF certificate: ' + title + ' — ' + issuer);
+          link.setAttribute('aria-label', 'Open PDF certificate: ' + title + ', ' + issuer);
           link.appendChild(canvas);
           var badge = document.createElement('span');
           badge.className = 'cert-pdf-badge';
@@ -1151,7 +1710,7 @@ var CERTS = [
     } else if(cert.image){
       var img = document.createElement('img');
       img.src = cert.image;
-      img.alt = cert.title + ' — ' + cert.issuer;
+      img.alt = cert.title + ', ' + cert.issuer;
       img.loading = 'lazy';
       img.onerror = function(){
         thumb.innerHTML = '<div class="cert-fallback">' + fallbackSVG + 'No image yet</div>';
