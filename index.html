@@ -33,7 +33,23 @@
     font-family:'Inter', -apple-system, sans-serif;
     line-height:1.6;
     transition:background .35s ease, color .35s ease;
+    position:relative;
+    isolation:isolate;
+    overflow-x:hidden;
   }
+  #scientific-background{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.72;
+  }
+  main, footer{ position:relative; z-index:1; }
+  main{ padding-top:0; }
+  section[id]{ scroll-margin-top:92px; }
+  @media (prefers-reduced-motion: reduce){ #scientific-background{ opacity:0.42; } }
   ::selection{ background:var(--accent); color:var(--text-on-accent); }
 
   h1,h2,h3,h4{
@@ -146,12 +162,21 @@
   .swatch-label{ font-size:0.82rem; font-weight:500; }
 
 
-  /* ---------- Left side tabs ---------- */
+  /* ---------- Desktop navigation partition ---------- */
+  .portfolio-layout{
+    display:grid;
+    grid-template-columns:220px minmax(0, 1fr);
+    align-items:start;
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 20px;
+  }
   .side-tabs{
-    position:fixed;
-    top:120px;
-    left:10px;
+    position:sticky;
+    top:84px;
     z-index:40;
+    align-self:start;
+    margin:24px 18px 0 0;
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:10px;
@@ -162,6 +187,7 @@
     list-style:none;
     margin:0;
     padding:0;
+    display:block;
   }
   .side-tabs li{ margin-bottom:4px; }
   .side-tabs a{
@@ -179,13 +205,20 @@
     color:var(--accent-strong);
   }
   @media (max-width:768px){
+    .portfolio-layout{ display:block; padding:0; }
     .side-tabs{
-      position:static;
+      position:sticky;
+      top:66px;
+      left:auto;
+      transform:none;
+      max-width:calc(100vw - 16px);
       margin:8px auto 0;
-      max-width:1080px;
+      padding:5px 6px;
     }
-    .side-tabs ul{ display:flex; flex-wrap:wrap; gap:6px; }
-    .side-tabs li{ margin-bottom:0; }
+    .side-tabs ul{ display:flex; align-items:center; gap:2px; white-space:nowrap; overflow-x:auto; }
+    .side-tabs li{ margin:0; flex:none; }
+    .side-tabs a{ padding:5px 8px; }
+    section[id]{ scroll-margin-top:128px; }
   }
 
   /* ---------- Hero ---------- */
@@ -623,9 +656,33 @@
     padding:10px 16px; z-index:100;
   }
   .skip-link:focus{ left:12px; top:12px; }
+  .back-to-top{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:60;
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--accent-strong);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:1.1rem;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .back-to-top:hover{ transform:translateY(-2px); border-color:var(--accent-strong); }
+  @media (max-width:640px){ .back-to-top{ right:16px; bottom:16px; } }
 </style>
 </head>
 <body>
+
+<canvas id="scientific-background" aria-hidden="true"></canvas>
 
 <a href="#main" class="skip-link">Skip to content</a>
 
@@ -644,6 +701,7 @@
   </div>
 </header>
 
+<div class="portfolio-layout">
 <nav class="side-tabs" aria-label="Page sections">
   <ul>
     <li><a href="#overview">Overview</a></li>
@@ -1204,6 +1262,7 @@
   </section>
 
 </main>
+</div>
 
 <footer>
   <div class="wrap footer-row">
@@ -1215,6 +1274,8 @@
     </div>
   </div>
 </footer>
+
+<a class="back-to-top" href="#main" aria-label="Back to top">↑</a>
 
 <script>
 (function(){
@@ -1371,6 +1432,282 @@
   var savedPalette = localStorage.getItem('cc_palette') || 'navy_teal_skyblue_white';
   applyPalette(savedPalette);
 
+})();
+</script>
+
+<script>
+/* =====================================================================
+   INTERACTIVE SCIENTIFIC BACKGROUND
+   A lightweight canvas layer: network graphs, ball-and-stick molecules,
+   and protein-inspired residue chains. It follows the selected palette.
+   ===================================================================== */
+(function(){
+  var canvas = document.getElementById('scientific-background');
+  if(!canvas || !canvas.getContext) return;
+
+  var ctx = canvas.getContext('2d');
+  var width = 0, height = 0, ratio = 1;
+  var pointer = { x:-1000, y:-1000 };
+  var nodes = [], molecules = [], proteins = [];
+  var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var frame;
+
+  function random(seed){
+    var value = Math.sin(seed * 999.91) * 43758.5453;
+    return value - Math.floor(value);
+  }
+  function hexWithAlpha(hex, alpha){
+    if(!hex || hex.charAt(0) !== '#') return hex;
+    var value = hex.slice(1);
+    if(value.length === 3) value = value.replace(/(.)/g, '$1$1');
+    var number = parseInt(value, 16);
+    return 'rgba(' + ((number >> 16) & 255) + ',' + ((number >> 8) & 255) + ',' + (number & 255) + ',' + alpha + ')';
+  }
+  function palette(){
+    var style = getComputedStyle(document.documentElement);
+    return {
+      dark: style.getPropertyValue('--accent-strong').trim(),
+      mid: style.getPropertyValue('--accent').trim(),
+      pale: style.getPropertyValue('--c3').trim(),
+      ink: style.getPropertyValue('--ink').trim()
+    };
+  }
+  function point(x, y){ return { x:x, y:y }; }
+  function distance(a, b){
+    var dx = a.x - b.x, dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  function buildScene(){
+    var count = width < 640 ? 18 : 34;
+    nodes = [];
+    for(var i=0; i<count; i++){
+      var r1 = random(i + 2), r2 = random(i + 71);
+      nodes.push({
+        x:r1 * width, y:r2 * height,
+        vx:(random(i + 121) - .5) * .21,
+        vy:(random(i + 191) - .5) * .21,
+        phase:random(i + 311) * Math.PI * 2,
+        radius:1.3 + random(i + 251) * 2.1
+      });
+    }
+
+    var templates = [
+      { atoms:['C','C','N','O','C','H','H','H'], bonds:[[0,1],[1,2],[2,3],[1,4],[0,5],[0,6],[4,7]] },
+      { atoms:['C','O','N','C','C','O','H','H','H'], bonds:[[0,1],[0,2],[2,3],[3,4],[4,5],[0,6],[3,7],[4,8]] },
+      { atoms:['C','C','C','N','O','O','H','H'], bonds:[[0,1],[1,2],[2,3],[3,4],[2,5],[0,6],[1,7]] }
+    ];
+    var anchors = [point(width * .12, height * .23), point(width * .85, height * .37), point(width * .18, height * .82)];
+    molecules = templates.map(function(template, m){
+      var atoms = template.atoms.map(function(kind, i){
+        var angle = (Math.PI * 2 * i / template.atoms.length) + random(i + m * 11) * .55;
+        var radius = 18 + random(i + m * 21) * 25;
+        return { kind:kind, x:Math.cos(angle) * radius, y:Math.sin(angle) * radius, r:kind === 'H' ? 3.2 : 5.5 };
+      });
+      return { anchor:anchors[m], atoms:atoms, bonds:template.bonds, phase:m * 1.7, scale:width < 640 ? .72 : 1 };
+    });
+
+    proteins = [
+      { anchor:point(width * .76, height * .15), phase:.2, scale:width < 640 ? .72 : 1, variant:0 },
+      { anchor:point(width * .62, height * .77), phase:3.2, scale:width < 640 ? .62 : .88, variant:1 }
+    ];
+  }
+  function resize(){
+    width = window.innerWidth;
+    height = window.innerHeight;
+    ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    buildScene();
+  }
+  function atomColor(kind, colors){
+    if(kind === 'O') return hexWithAlpha(colors.dark, .72);
+    if(kind === 'N') return hexWithAlpha(colors.mid, .78);
+    if(kind === 'H') return hexWithAlpha(colors.pale, .92);
+    return hexWithAlpha(colors.ink, .52);
+  }
+  function sphere(x, y, radius, color){
+    var gradient = ctx.createRadialGradient(x - radius * .38, y - radius * .42, radius * .12, x, y, radius);
+    gradient.addColorStop(0, 'rgba(255,255,255,.92)');
+    gradient.addColorStop(.25, color);
+    gradient.addColorStop(1, 'rgba(0,0,0,.18)');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  function drawGraph(colors, active, time){
+    var i, j;
+    ctx.lineWidth = 1;
+    for(i=0; i<nodes.length; i++){
+      var node = nodes[i];
+      if(active){
+        var dx = pointer.x - node.x, dy = pointer.y - node.y, pd = Math.sqrt(dx * dx + dy * dy);
+        if(pd < 180){ node.vx += dx / Math.max(pd, 1) * .0019; node.vy += dy / Math.max(pd, 1) * .0019; }
+        node.vx += Math.sin(time * .0017 + node.phase) * .0034;
+        node.vy += Math.cos(time * .0013 + node.phase) * .0034;
+        node.x += node.vx; node.y += node.vy;
+        node.vx = Math.max(-.36, Math.min(.36, node.vx * .996));
+        node.vy = Math.max(-.36, Math.min(.36, node.vy * .996));
+        if(node.x < -8 || node.x > width + 8) node.vx *= -1;
+        if(node.y < -8 || node.y > height + 8) node.vy *= -1;
+        node.x = Math.max(-8, Math.min(width + 8, node.x));
+        node.y = Math.max(-8, Math.min(height + 8, node.y));
+      }
+      for(j=i + 1; j<nodes.length; j++){
+        var other = nodes[j], d = distance(node, other);
+        if(d < 138){
+          ctx.strokeStyle = hexWithAlpha(colors.mid, (1 - d / 138) * .18);
+          ctx.beginPath(); ctx.moveTo(node.x, node.y); ctx.lineTo(other.x, other.y); ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(function(node){ sphere(node.x, node.y, node.radius, hexWithAlpha(colors.dark, .44)); });
+  }
+  function drawMolecules(colors, time){
+    molecules.forEach(function(molecule){
+      var angle = Math.sin(time * .000345 + molecule.phase) * .18;
+      var ca = Math.cos(angle), sa = Math.sin(angle);
+      var offsetX = Math.sin(time * .000225 + molecule.phase) * 8;
+      var offsetY = Math.cos(time * .00027 + molecule.phase) * 6;
+      function position(atom){
+        return point(
+          molecule.anchor.x + offsetX + (atom.x * ca - atom.y * sa) * molecule.scale,
+          molecule.anchor.y + offsetY + (atom.x * sa + atom.y * ca) * molecule.scale
+        );
+      }
+      molecule.bonds.forEach(function(bond){
+        var first = position(molecule.atoms[bond[0]]), second = position(molecule.atoms[bond[1]]);
+        ctx.strokeStyle = hexWithAlpha(colors.ink, .28);
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(first.x, first.y); ctx.lineTo(second.x, second.y); ctx.stroke();
+      });
+      molecule.atoms.forEach(function(atom){
+        var pos = position(atom);
+        sphere(pos.x, pos.y, atom.r * molecule.scale, atomColor(atom.kind, colors));
+      });
+    });
+  }
+  function drawProteins(colors, time){
+    proteins.forEach(function(protein){
+      var rotation = Math.sin(time * .00012 + protein.phase) * .12;
+      var lift = Math.sin(time * .00022 + protein.phase) * 5;
+      var ribbons = [colors.dark, colors.mid, colors.pale, colors.mid];
+
+      function loop(points, color){
+        ctx.strokeStyle = hexWithAlpha(color, .54);
+        ctx.lineWidth = 2.2;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(points[0][0], points[0][1]);
+        for(var i=1; i<points.length - 1; i += 2){
+          var control = points[i], end = points[i + 1];
+          ctx.quadraticCurveTo(control[0], control[1], end[0], end[1]);
+        }
+        ctx.stroke();
+      }
+      function helix(x, y, length, turns, angle, color){
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.strokeStyle = hexWithAlpha(color, .58);
+        ctx.lineWidth = 9;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        for(var i=0; i<=30; i++){
+          var t = i / 30;
+          var px = (t - .5) * length;
+          var py = Math.sin(t * turns * Math.PI * 2) * 6;
+          if(i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.strokeStyle = hexWithAlpha(colors.pale, .45);
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        for(var j=0; j<=30; j++){
+          var u = j / 30;
+          var hx = (u - .5) * length;
+          var hy = Math.sin(u * turns * Math.PI * 2) * 6;
+          if(j === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+      function sheet(x, y, length, breadth, angle, color, direction){
+        var tip = direction * length * .58;
+        var tail = -direction * length * .5;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.fillStyle = hexWithAlpha(color, .38);
+        ctx.strokeStyle = hexWithAlpha(colors.ink, .20);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(tail, -breadth * .5);
+        ctx.lineTo(direction * length * .26, -breadth * .5);
+        ctx.lineTo(tip, 0);
+        ctx.lineTo(direction * length * .26, breadth * .5);
+        ctx.lineTo(tail, breadth * .5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.translate(protein.anchor.x, protein.anchor.y + lift);
+      ctx.rotate(rotation);
+      ctx.scale(protein.scale, protein.scale);
+
+      if(protein.variant === 0){
+        /* Compact alpha/beta fold: helices surround a small beta-sheet core. */
+        sheet(-8, -20, 46, 13, -.35, ribbons[2], 1);
+        sheet(7, -5, 43, 13, .42, ribbons[1], -1);
+        sheet(-15, 10, 37, 12, -.78, ribbons[0], 1);
+        helix(-31, 24, 44, 2.2, -.55, ribbons[0]);
+        helix(26, 22, 48, 2.4, 1.1, ribbons[1]);
+        helix(18, -33, 37, 1.9, -.92, ribbons[3]);
+        loop([[-38,20],[-52,4],[-30,-10],[-22,-30],[-8,-29]], ribbons[0]);
+        loop([[10,-31],[31,-48],[45,-25],[42,-3],[24,5]], ribbons[3]);
+        loop([[-2,11],[5,31],[26,29],[40,35],[49,20]], ribbons[1]);
+      } else {
+        /* Larger mixed fold: a beta-rich cap with a helical lower domain. */
+        sheet(-12, -31, 52, 14, -.16, ribbons[2], 1);
+        sheet(13, -17, 48, 14, .56, ribbons[0], -1);
+        sheet(-23, -7, 42, 13, -.82, ribbons[1], 1);
+        helix(-32, 25, 48, 2.3, 1.0, ribbons[0]);
+        helix(4, 30, 55, 2.7, -.25, ribbons[1]);
+        helix(37, 22, 42, 2.1, -1.04, ribbons[3]);
+        loop([[-40,-8],[-58,-32],[-31,-48],[-7,-53],[9,-40]], ribbons[2]);
+        loop([[28,-15],[53,-4],[47,17],[59,36],[42,48]], ribbons[3]);
+        loop([[-17,10],[-5,48],[18,48],[32,37],[43,29]], ribbons[1]);
+      }
+      ctx.restore();
+    });
+  }
+  function render(time){
+    ctx.clearRect(0, 0, width, height);
+    var colors = palette();
+    drawGraph(colors, !motionQuery.matches, time);
+    drawProteins(colors, time);
+    drawMolecules(colors, time);
+    if(!motionQuery.matches) frame = requestAnimationFrame(render);
+  }
+  function updateMotion(){
+    cancelAnimationFrame(frame);
+    render(performance.now());
+  }
+
+  window.addEventListener('resize', function(){ resize(); updateMotion(); });
+  window.addEventListener('pointermove', function(event){ pointer.x = event.clientX; pointer.y = event.clientY; });
+  window.addEventListener('blur', function(){ pointer.x = -1000; pointer.y = -1000; });
+  if(motionQuery.addEventListener) motionQuery.addEventListener('change', updateMotion);
+  else motionQuery.addListener(updateMotion);
+
+  resize();
+  render(performance.now());
 })();
 </script>
 
